@@ -38,9 +38,9 @@ export default function MaterialsPage() {
   }, [category, materials, search]);
 
   return (
-    <section className="section-container py-14">
+    <section className="section-container page-section">
       <Badge>Resource Hub</Badge>
-      <h1 className="heading mt-4 text-4xl font-semibold md:text-6xl">Materials</h1>
+      <h1 className="page-title mt-4">Materials</h1>
       <div className="mt-8 flex flex-col gap-4 md:flex-row">
         <div className="relative w-full">
           <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-black/45 dark:text-white/45" />

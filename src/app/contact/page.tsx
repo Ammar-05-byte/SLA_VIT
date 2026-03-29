@@ -32,11 +32,11 @@ export default function ContactPage() {
   }
 
   return (
-    <section className="section-container py-14">
+    <section className="section-container page-section">
       <Badge>Contact</Badge>
-      <h1 className="heading mt-4 text-4xl font-semibold md:text-6xl">Lets Build Cultural Moments</h1>
+      <h1 className="page-title mt-4">Lets Build Cultural Moments</h1>
 
-      <form action={onSubmit} className="glass mt-10 max-w-2xl rounded-2xl p-6">
+      <form action={onSubmit} className="glass mt-10 max-w-2xl rounded-2xl p-4 sm:p-6">
         <div className="grid gap-4 md:grid-cols-2">
           <Input name="name" placeholder="Your name" required />
           <Input name="email" type="email" placeholder="Email" required />

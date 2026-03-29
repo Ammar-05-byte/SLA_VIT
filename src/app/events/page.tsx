@@ -14,9 +14,9 @@ export default async function EventsPage() {
   }> = await getEvents();
 
   return (
-    <section className="section-container py-14">
+    <section className="section-container page-section">
       <Badge>Calendar</Badge>
-      <h1 className="heading mt-4 text-4xl font-semibold md:text-6xl">Events and Experiences</h1>
+      <h1 className="page-title mt-4">Events and Experiences</h1>
       <div className="mt-10 space-y-4">
         {events.map((event) => (
           <Card key={event.id} className="overflow-hidden">
@@ -41,7 +41,7 @@ export default async function EventsPage() {
       </div>
 
       <div className="mt-16">
-        <h2 className="heading mb-4 text-2xl font-semibold md:text-4xl">Interactive Timeline</h2>
+        <h2 className="heading mb-4 text-xl font-semibold sm:text-2xl md:text-4xl">Interactive Timeline</h2>
         <div className="relative ml-2 border-l border-black/20 pl-8 dark:border-white/20">
           {events.map((event) => (
             <div key={`${event.id}-timeline`} className="relative mb-8">

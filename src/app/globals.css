@@ -64,6 +64,56 @@ body {
   margin-inline: auto;
 }
 
+.page-section {
+  padding-block: 3.5rem;
+}
+
+.page-title {
+  font-family: var(--font-poppins), sans-serif;
+  font-size: clamp(1.95rem, 7vw, 3.75rem);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+
+.hero-shell {
+  min-height: 84vh;
+  padding-top: 5rem;
+}
+
+@media (max-height: 760px) {
+  .hero-shell {
+    min-height: 72svh;
+    padding-top: 4.25rem;
+  }
+}
+
+@media (max-height: 680px) {
+  .hero-shell {
+    min-height: 66svh;
+  }
+}
+
+@media (max-width: 390px) {
+  .page-section {
+    padding-block: 2.5rem;
+  }
+
+  .page-title {
+    font-size: 1.9rem;
+    line-height: 1.08;
+  }
+}
+
+@media (max-width: 360px) {
+  .page-section {
+    padding-block: 2.2rem;
+  }
+
+  .page-title {
+    font-size: 1.72rem;
+  }
+}
+
 .reveal-mask {
   overflow: hidden;
 }
