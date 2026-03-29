@@ -1,0 +1,75 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #fff8e7;
+  --fg: #0f0f0f;
+  --card: rgba(255, 255, 255, 0.65);
+  --red: #c60b1e;
+  --yellow: #ffc400;
+  --ring: rgba(198, 11, 30, 0.5);
+}
+
+.dark {
+  --bg: #0f0f0f;
+  --fg: #fff8e7;
+  --card: rgba(20, 20, 20, 0.7);
+  --ring: rgba(255, 196, 0, 0.45);
+}
+
+@theme inline {
+  --color-background: var(--bg);
+  --color-foreground: var(--fg);
+  --font-sans: var(--font-inter);
+  --font-heading: var(--font-poppins);
+}
+
+* {
+  border-color: color-mix(in srgb, var(--fg) 8%, transparent);
+}
+
+html,
+body {
+  scroll-behavior: auto;
+}
+
+body {
+  background:
+    radial-gradient(circle at 8% 4%, color-mix(in srgb, var(--yellow) 40%, transparent) 0%, transparent 35%),
+    radial-gradient(circle at 92% 20%, color-mix(in srgb, var(--red) 25%, transparent) 0%, transparent 40%),
+    linear-gradient(180deg, color-mix(in srgb, var(--bg) 92%, #fff 8%) 0%, var(--bg) 100%);
+  color: var(--fg);
+  font-family: var(--font-inter), sans-serif;
+}
+
+.glass {
+  background: var(--card);
+  backdrop-filter: blur(10px);
+  border: 1px solid color-mix(in srgb, var(--fg) 8%, transparent);
+}
+
+.text-gradient {
+  background: linear-gradient(96deg, var(--red), #df3f2f 45%, var(--yellow));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.heading {
+  font-family: var(--font-poppins), sans-serif;
+  letter-spacing: -0.02em;
+}
+
+.section-container {
+  width: min(1180px, calc(100% - 2rem));
+  margin-inline: auto;
+}
+
+.reveal-mask {
+  overflow: hidden;
+}
+
+.reveal-mask > * {
+  transform: translateY(110%);
+  opacity: 0;
+}
+
