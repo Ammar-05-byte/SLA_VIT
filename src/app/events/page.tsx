@@ -33,7 +33,7 @@ export default async function EventsPage() {
                   {format(new Date(event.startsAt), "dd MMM yyyy, hh:mm a")}
                 </p>
                 <h2 className="heading mt-2 text-2xl font-semibold">{event.title}</h2>
-                <p className="mt-2 text-black/70 dark:text-white/70">{event.description}</p>
+                <p className="mt-2 text-neutral-700">{event.description}</p>
               </CardContent>
             </div>
           </Card>
@@ -46,7 +46,7 @@ export default async function EventsPage() {
           {events.map((event) => (
             <div key={`${event.id}-timeline`} className="relative mb-8">
               <span className="absolute -left-[42px] top-1 h-3 w-3 rounded-full bg-[var(--red)]" />
-              <p className="text-sm text-black/55 dark:text-white/55">{format(new Date(event.startsAt), "MMM yyyy")}</p>
+              <p className="text-sm text-neutral-600">{format(new Date(event.startsAt), "MMM yyyy")}</p>
               <p className="heading text-xl">{event.title}</p>
             </div>
           ))}

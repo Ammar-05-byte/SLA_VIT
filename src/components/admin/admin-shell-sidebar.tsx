@@ -1,0 +1,198 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
+import {
+  LayoutGrid,
+  LogOut,
+  FileText,
+  MessageCircle,
+  Users,
+  Calendar,
+  BookOpen,
+  Lightbulb,
+  Package,
+  Inbox,
+} from "lucide-react";
+import { createClient } from "@/lib/supabase/client";
+import { cn } from "@/lib/utils";
+
+export type AdminProfile = {
+  name: string;
+  email: string;
+  role: string;
+};
+
+const primaryNav: {
+  href: string;
+  label: string;
+  icon: React.ComponentType<{ className?: string }>;
+  match: (pathname: string) => boolean;
+}[] = [
+  { href: "/admin", label: "Dashboard", icon: LayoutGrid, match: (p) => p === "/admin" },
+  {
+    href: "/admin/manage-posts",
+    label: "Manage Posts",
+    icon: FileText,
+    match: (p) => p.startsWith("/admin/manage-posts"),
+  },
+  {
+    href: "/admin/comments",
+    label: "Comments",
+    icon: MessageCircle,
+    match: (p) => p.startsWith("/admin/comments"),
+  },
+  { href: "/admin/members", label: "Members", icon: Users, match: (p) => p.startsWith("/admin/members") },
+];
+
+const siteNav: {
+  href: string;
+  label: string;
+  icon: React.ComponentType<{ className?: string }>;
+  match?: (pathname: string) => boolean;
+}[] = [
+  {
+    href: "/admin/blogs",
+    label: "Blogs",
+    icon: FileText,
+    match: (p) =>
+      p === "/admin/blogs" || p.startsWith("/admin/manage-posts") || p.startsWith("/admin/new-post"),
+  },
+  { href: "/admin/stories", label: "Stories", icon: BookOpen },
+  { href: "/admin/did-you-know", label: "Did You Know?", icon: Lightbulb },
+  { href: "/admin/materials", label: "Materials", icon: Package },
+  { href: "/admin/events", label: "Events", icon: Calendar },
+  { href: "/admin/team", label: "Team", icon: Users },
+  { href: "/admin/messages", label: "Inbox", icon: Inbox },
+];
+
+function formatRole(role: string) {
+  if (!role) return "Admin";
+  return role.charAt(0).toUpperCase() + role.slice(1).replace(/-/g, " ");
+}
+
+export function AdminShellSidebar({ admin: serverAdmin }: { admin: AdminProfile }) {
+  const pathname = usePathname();
+  const router = useRouter();
+  const [logoOk, setLogoOk] = useState(true);
+  const [profile, setProfile] = useState<AdminProfile>(serverAdmin);
+
+  useEffect(() => {
+    setProfile(serverAdmin);
+  }, [serverAdmin.name, serverAdmin.email, serverAdmin.role]);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    async function pullFromSupabase() {
+      try {
+        const res = await fetch("/api/admin/me", { cache: "no-store" });
+        if (!res.ok || cancelled) return;
+        const data: { email?: string | null; name?: string | null; role?: string | null } = await res.json();
+        if (cancelled) return;
+        setProfile((prev) => ({
+          name: typeof data.name === "string" && data.name.length > 0 ? data.name : prev.name,
+          email: typeof data.email === "string" && data.email.length > 0 ? data.email : prev.email,
+          role: typeof data.role === "string" && data.role.length > 0 ? data.role : prev.role,
+        }));
+      } catch {
+        /* keep server / previous profile */
+      }
+    }
+
+    void pullFromSupabase();
+
+    function onVisible() {
+      if (document.visibilityState === "visible") void pullFromSupabase();
+    }
+    document.addEventListener("visibilitychange", onVisible);
+    return () => {
+      cancelled = true;
+      document.removeEventListener("visibilitychange", onVisible);
+    };
+  }, [pathname]);
+
+  async function logout() {
+    const supabase = createClient();
+    await supabase.auth.signOut();
+    router.push("/admin/login");
+    router.refresh();
+  }
+
+  return (
+    <aside className="flex w-[260px] shrink-0 flex-col bg-[#6B0F1A] text-white md:w-[280px]">
+      <div className="flex items-center gap-3 border-b border-white/10 p-5">
+        <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-full border-2 border-[#f5d78e]/80 bg-[#f5d78e]/20">
+          {logoOk ? (
+            <Image
+              src="/sla-vit-logo.png"
+              alt=""
+              fill
+              className="object-cover"
+              sizes="48px"
+              onError={() => setLogoOk(false)}
+            />
+          ) : (
+            <span className="flex h-full w-full items-center justify-center text-xs font-bold text-[#f5d78e]">SLA</span>
+          )}
+        </div>
+        <div className="min-w-0">
+          <p className="font-[family-name:var(--font-admin-serif),Georgia,serif] text-lg font-bold leading-tight">Admin Panel</p>
+          <p className="truncate text-xs text-white/75" title={profile.role ? `Role: ${profile.role}` : undefined}>
+            {formatRole(profile.role)}
+          </p>
+        </div>
+      </div>
+
+      <nav className="flex flex-1 flex-col gap-1 overflow-y-auto p-3">
+        {primaryNav.map(({ href, label, icon: Icon, match }) => {
+          const active = match(pathname);
+          return (
+            <Link
+              key={href}
+              href={href}
+              className={cn(
+                "flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-colors",
+                active ? "bg-white/15 text-white" : "text-white/90 hover:bg-white/10",
+              )}
+            >
+              <Icon className="h-4 w-4 shrink-0 opacity-90" />
+              {label}
+            </Link>
+          );
+        })}
+
+        <p className="mb-1 mt-6 px-3 text-[10px] font-semibold uppercase tracking-[0.2em] text-white/45">Site CMS</p>
+        {siteNav.map(({ href, label, icon: Icon, match }) => {
+          const active = match ? match(pathname) : pathname === href || pathname.startsWith(`${href}/`);
+          return (
+            <Link
+              key={href}
+              href={href}
+              className={cn(
+                "flex items-center gap-3 rounded-xl px-3 py-2 text-xs font-medium transition-colors",
+                active ? "bg-white/10 text-white" : "text-white/70 hover:bg-white/5 hover:text-white/90",
+              )}
+            >
+              <Icon className="h-3.5 w-3.5 shrink-0 opacity-80" />
+              {label}
+            </Link>
+          );
+        })}
+      </nav>
+
+      <div className="border-t border-white/10 p-3">
+        <button
+          type="button"
+          onClick={() => void logout()}
+          className="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left text-sm font-medium text-white/90 transition-colors hover:bg-white/10"
+        >
+          <LogOut className="h-4 w-4" />
+          Logout
+        </button>
+      </div>
+    </aside>
+  );
+}

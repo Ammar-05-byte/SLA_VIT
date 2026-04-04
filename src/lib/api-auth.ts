@@ -1,10 +1,17 @@
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth";
+import { createClient } from "@/lib/supabase/server";
+import { isUserInAdminsTable } from "@/lib/supabase/admin";
 
 export async function ensureAdmin() {
-  const session = await getServerSession(authOptions);
-  if (!session?.user || session.user.role !== "admin") {
+  try {
+    const supabase = await createClient();
+    const {
+      data: { user },
+      error,
+    } = await supabase.auth.getUser();
+
+    if (error || !user) return false;
+    return isUserInAdminsTable(supabase, user.id);
+  } catch {
     return false;
   }
-  return true;
 }

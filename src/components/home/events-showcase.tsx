@@ -14,7 +14,7 @@ interface EventItem {
 
 export function EventsShowcase({ events }: { events: EventItem[] }) {
   return (
-    <section className="py-20">
+    <section id="events" className="scroll-mt-24 py-20">
       <div className="section-container">
         <h2 className="heading mb-8 text-3xl font-semibold md:text-5xl">Upcoming Events</h2>
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">

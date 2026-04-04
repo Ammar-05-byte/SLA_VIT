@@ -1,9 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Poppins } from "next/font/google";
-import { SiteNavbar } from "@/components/site-navbar";
-import { SiteFooter } from "@/components/site-footer";
-import { ScrollSmoothProvider } from "@/components/scroll-smooth-provider";
-import { PageTransition } from "@/components/page-transition";
+import { LayoutChrome } from "@/components/layout-chrome";
 import "./globals.css";
 
 const inter = Inter({
@@ -29,13 +26,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${inter.variable} ${poppins.variable} antialiased`}>
-      <body className="min-h-screen flex flex-col">
-        <ScrollSmoothProvider />
-        <SiteNavbar />
-        <main className="flex-1 py-10">
-          <PageTransition>{children}</PageTransition>
-        </main>
-        <SiteFooter />
+      <body className="flex min-h-screen flex-col">
+        <LayoutChrome>{children}</LayoutChrome>
       </body>
     </html>
   );

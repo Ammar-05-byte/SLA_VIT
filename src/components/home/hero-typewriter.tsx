@@ -42,12 +42,25 @@ export function HeroTypewriter() {
   return (
     <section className="hero-shell relative overflow-hidden">
       <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_20%_20%,rgba(198,11,30,0.28),transparent_45%),radial-gradient(circle_at_80%_40%,rgba(255,196,0,0.34),transparent_48%),linear-gradient(180deg,rgba(255,248,231,0.3),rgba(255,248,231,0.95))] dark:bg-[radial-gradient(circle_at_20%_20%,rgba(198,11,30,0.28),transparent_45%),radial-gradient(circle_at_80%_40%,rgba(255,196,0,0.26),transparent_48%),linear-gradient(180deg,rgba(12,12,12,0.5),rgba(12,12,12,0.95))]" />
-      <div className="section-container flex min-h-[80vh] flex-col justify-center">
+      <div className="section-container flex min-h-[80vh] flex-col justify-start pb-16 pt-16 md:pb-20 md:pt-20 lg:pt-24">
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.55 }}
+          className="mb-5"
+        >
+          <p className="font-serif text-3xl font-bold tracking-tight text-neutral-900 [text-shadow:0_1px_0_rgba(255,255,255,0.35)] dark:text-white dark:[text-shadow:0_2px_12px_rgba(0,0,0,0.45)] md:text-4xl lg:text-5xl">
+            Habla | Baila | Celebra
+          </p>
+          <p className="mt-3 max-w-2xl text-sm font-sans font-normal leading-relaxed text-neutral-800/90 dark:text-white/90 dark:[text-shadow:0_1px_8px_rgba(0,0,0,0.4)] md:text-base">
+            Más que palabras — es cultura, historia y pasión.
+          </p>
+        </motion.div>
         <motion.p
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="mb-4 text-xs uppercase tracking-[0.24em] text-black/65 dark:text-white/65"
+          className="mb-4 text-xs uppercase tracking-[0.24em] text-neutral-700/80 dark:text-white/70"
         >
           Official Cultural Chapter | VIT Vellore
         </motion.p>
@@ -64,7 +77,7 @@ export function HeroTypewriter() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="mt-6 max-w-2xl text-base text-black/72 dark:text-white/72 md:text-lg"
+          className="mt-6 max-w-2xl text-base text-neutral-800/85 dark:text-white/75 md:text-lg"
         >
           A cinematic journey into language, literature, music, and cultural expression. This is not just a website,
           it is an experience.
@@ -75,7 +88,7 @@ export function HeroTypewriter() {
           transition={{ duration: 0.8, delay: 0.3 }}
           className="mt-10 flex flex-wrap items-center gap-4"
         >
-          <Link href="#culture">
+          <Link href="#about">
             <Button size="lg">Explore the Culture</Button>
           </Link>
           <Link href="/events">
@@ -91,9 +104,9 @@ export function HeroTypewriter() {
         transition={{ delay: 0.9 }}
         className="absolute bottom-8 left-1/2 -translate-x-1/2"
       >
-        <div className="flex flex-col items-center gap-2 text-[11px] uppercase tracking-[0.2em] text-black/45 dark:text-white/45">
+        <div className="flex flex-col items-center gap-2 text-[11px] uppercase tracking-[0.2em] text-neutral-600/70 dark:text-white/45">
           Scroll
-          <span className="relative h-10 w-[1px] overflow-hidden bg-black/20 dark:bg-white/20">
+          <span className="relative h-10 w-[1px] overflow-hidden bg-neutral-900/20 dark:bg-white/20">
             <span className="absolute left-0 top-0 h-4 w-full animate-bounce bg-[var(--red)]" />
           </span>
         </div>

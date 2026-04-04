@@ -65,115 +65,121 @@ export const mockMaterials = [
   },
 ];
 
+/**
+ * Portraits live in `/public/` with these filenames (spaces / & preserved).
+ * Admin DB rows should set the same `image` paths, e.g. `/President.jpg`.
+ */
 export const mockTeam = [
   {
     id: "t1",
     name: "Shrish Singh Sourya",
-    role: "Chairperson",
-    bio: "Leads the strategic and cultural vision of the association.",
-    image:
-      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=80",
-    instagram: "https://instagram.com",
-    linkedin: "https://linkedin.com",
-    twitter: "https://x.com",
+    role: "President",
+    image: "/President.jpg",
+    instagram: "https://www.instagram.com/vit_sla?igsh=MTVlaDBlcHh2aWNpZA==",
+    linkedin: "https://www.linkedin.com/company/sla-vit",
   },
   {
     id: "t2",
     name: "Ammar Abdullah",
-    role: "Vice Chairperson",
-    bio: "Coordinates initiatives and supports chapter-wide execution.",
-    image:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=800&q=80",
-    instagram: "https://instagram.com",
-    linkedin: "https://linkedin.com",
-    twitter: "https://x.com",
+    role: "Vice President",
+    image: "/Vice President.jpg",
+    instagram: "https://www.instagram.com/vit_sla?igsh=MTVlaDBlcHh2aWNpZA==",
+    linkedin: "https://www.linkedin.com/company/sla-vit",
   },
   {
     id: "t3",
     name: "Ramana",
-    role: "Secretary",
-    bio: "Handles official communication, records, and operations.",
-    image:
-      "https://images.unsplash.com/photo-1521119989659-a83eee488004?auto=format&fit=crop&w=800&q=80",
-    instagram: "https://instagram.com",
-    linkedin: "https://linkedin.com",
-    twitter: "https://x.com",
+    role: "Secretary General",
+    image: "/Secretary General.jpg",
+    instagram: "https://www.instagram.com/vit_sla?igsh=MTVlaDBlcHh2aWNpZA==",
+    linkedin: "https://www.linkedin.com/company/sla-vit",
   },
   {
     id: "t4",
     name: "Tejas Pisal",
-    role: "Co-Secretary",
-    bio: "Supports coordination and ensures smooth administrative flow.",
-    image:
-      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=800&q=80",
-    instagram: "https://instagram.com",
-    linkedin: "https://linkedin.com",
-    twitter: "https://x.com",
+    role: "Associate Secretary",
+    image: "/Associate Secretary.jpg",
+    instagram: "https://www.instagram.com/vit_sla?igsh=MTVlaDBlcHh2aWNpZA==",
+    linkedin: "https://www.linkedin.com/company/sla-vit",
   },
   {
     id: "t5",
     name: "R. Naren",
-    role: "HR Head",
-    bio: "Builds a collaborative member culture and internal support systems.",
-    image:
-      "https://images.unsplash.com/photo-1544723795-3fb6469f5b39?auto=format&fit=crop&w=800&q=80",
-    instagram: "https://instagram.com",
-    linkedin: "https://linkedin.com",
-    twitter: "https://x.com",
+    role: "Director of Human Resources",
+    image: "/Director of Human Resource.jpg",
+    instagram: "https://www.instagram.com/vit_sla?igsh=MTVlaDBlcHh2aWNpZA==",
+    linkedin: "https://www.linkedin.com/company/sla-vit",
   },
   {
     id: "t6",
     name: "S. Mithal Surya",
-    role: "Editorial Head",
-    bio: "Curates writing, publications, and literary storytelling content.",
-    image:
-      "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=800&q=80",
-    instagram: "https://instagram.com",
-    linkedin: "https://linkedin.com",
-    twitter: "https://x.com",
+    role: "Director of Editorial & Publications",
+    image: "/Director of Editorial & Publications.jpg",
+    instagram: "https://www.instagram.com/vit_sla?igsh=MTVlaDBlcHh2aWNpZA==",
+    linkedin: "https://www.linkedin.com/company/sla-vit",
   },
   {
     id: "t7",
     name: "Samridhi",
-    role: "Events Head",
-    bio: "Designs and executes immersive events for the chapter.",
-    image:
-      "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=800&q=80",
-    instagram: "https://instagram.com",
-    linkedin: "https://linkedin.com",
-    twitter: "https://x.com",
+    role: "Director of Events",
+    image: "/Director of Events.jpg",
+    instagram: "https://www.instagram.com/vit_sla?igsh=MTVlaDBlcHh2aWNpZA==",
+    linkedin: "https://www.linkedin.com/company/sla-vit",
   },
   {
     id: "t8",
     name: "Jai Kishore",
-    role: "Finance Head",
-    bio: "Manages budgeting and ensures responsible financial planning.",
-    image:
-      "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=800&q=80",
-    instagram: "https://instagram.com",
-    linkedin: "https://linkedin.com",
-    twitter: "https://x.com",
+    role: "Treasurer",
+    image: "/Treasurer.jpg",
+    instagram: "https://www.instagram.com/vit_sla?igsh=MTVlaDBlcHh2aWNpZA==",
+    linkedin: "https://www.linkedin.com/company/sla-vit",
   },
   {
     id: "t9",
     name: "Senthilpranav",
-    role: "Design Head",
-    bio: "Shapes the visual language of campaigns and experiences.",
-    image:
-      "https://images.unsplash.com/photo-1463453091185-61582044d556?auto=format&fit=crop&w=800&q=80",
-    instagram: "https://instagram.com",
-    linkedin: "https://linkedin.com",
-    twitter: "https://x.com",
+    role: "Director of Design",
+    image: "/Director of Design.jpg",
+    instagram: "https://www.instagram.com/vit_sla?igsh=MTVlaDBlcHh2aWNpZA==",
+    linkedin: "https://www.linkedin.com/company/sla-vit",
   },
   {
     id: "t10",
     name: "Misbah Waseem MI",
-    role: "Outreach Head",
-    bio: "Builds partnerships and expands the chapter's external network.",
-    image:
-      "https://images.unsplash.com/photo-1541216970279-affbfdd55aa8?auto=format&fit=crop&w=800&q=80",
-    instagram: "https://instagram.com",
-    linkedin: "https://linkedin.com",
-    twitter: "https://x.com",
+    role: "Director of Partnerships & Outreach",
+    image: "/Director of Partnerships & Outreach.jpg",
+    instagram: "https://www.instagram.com/vit_sla?igsh=MTVlaDBlcHh2aWNpZA==",
+    linkedin: "https://www.linkedin.com/company/sla-vit",
+  },
+];
+
+export const mockStories = [
+  {
+    id: "s1",
+    title: "A Chapter in Motion",
+    slug: "a-chapter-in-motion",
+    excerpt: "Reflections on building community through language and shared stories.",
+    content:
+      "The Spanish Literary Association brings together readers, writers, and curious minds. This is a sample story for local preview when no database is configured.",
+    coverImage:
+      "https://images.unsplash.com/photo-1519682337058-a94d519337bc?auto=format&fit=crop&w=1200&q=80",
+    featured: true,
+    publishedAt: new Date().toISOString(),
+  },
+];
+
+export const mockDidYouKnow = [
+  {
+    id: "d1",
+    title: "Spanish connects 500M+ people",
+    content: "Spanish is one of the most widely spoken languages for native speakers worldwide.",
+    sourceUrl: "",
+    sortOrder: 0,
+  },
+  {
+    id: "d2",
+    title: "The first modern novel is often traced to Spanish literature",
+    content: "Don Quixote remains a cornerstone of narrative innovation in European letters.",
+    sourceUrl: "",
+    sortOrder: 1,
   },
 ];

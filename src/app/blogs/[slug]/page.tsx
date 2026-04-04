@@ -12,9 +12,9 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ slu
   return (
     <article className="section-container page-section max-w-4xl">
       <p className="text-xs uppercase tracking-[0.18em] text-[var(--red)]">{blog.category}</p>
-      <h1 className="page-title mt-3">{blog.title}</h1>
-      <p className="mt-4 text-base text-black/70 dark:text-white/70 sm:text-lg">{blog.excerpt}</p>
-      <div className="prose prose-lg mt-10 max-w-none dark:prose-invert">
+      <h1 className="page-title mt-3 text-neutral-950">{blog.title}</h1>
+      <p className="mt-4 text-base font-normal text-neutral-800 sm:text-lg">{blog.excerpt}</p>
+      <div className="article-body">
         <p>{blog.content}</p>
       </div>
     </article>

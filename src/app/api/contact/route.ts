@@ -2,6 +2,7 @@ import nodemailer from "nodemailer";
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { prisma } from "@/lib/prisma";
+import { ensureAdmin } from "@/lib/api-auth";
 
 const contactSchema = z.object({
   name: z.string().min(2),
@@ -45,6 +46,9 @@ export async function POST(req: Request) {
 }
 
 export async function GET() {
+  const isAdmin = await ensureAdmin();
+  if (!isAdmin) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+
   if (!process.env.DATABASE_URL) {
     return NextResponse.json([]);
   }

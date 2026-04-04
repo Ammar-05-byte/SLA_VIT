@@ -7,7 +7,7 @@ Production-ready official website with immersive design, dynamic content modules
 - Next.js 16 (App Router) + TypeScript
 - Tailwind CSS + custom shadcn-style UI components
 - Framer Motion + GSAP ScrollTrigger + Lenis smooth scrolling
-- NextAuth (credentials) for admin authentication
+- Supabase Auth for admin login (session verified against `public.admins`)
 - Prisma ORM + PostgreSQL
 - Optional Nodemailer contact notifications
 
@@ -36,13 +36,11 @@ npm install
 cp .env.example .env.local
 ```
 
-3. Fill required environment values in `.env.local`
+3. Fill required environment values in `.env.local` (see `.env.example`)
 
-- `DATABASE_URL`
-- `NEXTAUTH_SECRET`
-- `NEXTAUTH_URL`
-- `ADMIN_EMAIL`
-- `ADMIN_PASSWORD`
+- `DATABASE_URL` — Prisma / site CMS data
+- `NEXT_PUBLIC_SUPABASE_URL` — Supabase project URL
+- `NEXT_PUBLIC_SUPABASE_ANON_KEY` — Supabase anon (public) key
 
 4. Generate Prisma client and push schema
 
@@ -60,7 +58,7 @@ npm run dev
 ## Admin Access
 
 - Route: `/admin/login`
-- Uses credentials from `ADMIN_EMAIL` and `ADMIN_PASSWORD`
+- Use a **Supabase Auth** user (email + password) whose **`auth.users.id` matches** the `id` column in `public.admins`. Create the user under **Authentication → Users**, then insert or update the `admins` row to use that same UUID.
 
 ## Build and Verification
 
@@ -78,4 +76,5 @@ npm run build
 ## Notes
 
 - If `DATABASE_URL` is not set, public pages use mock fallback content for graceful local preview.
+- If Supabase env vars are missing, admin login and protected admin routes will not work until they are set.
 - To enable contact emails, add SMTP env variables (`SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS`, `CONTACT_RECEIVER_EMAIL`).

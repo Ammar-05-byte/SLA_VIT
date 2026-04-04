@@ -46,7 +46,7 @@ export default function ContactPage() {
         <Button className="mt-4" disabled={loading}>
           {loading ? "Sending..." : "Send Message"}
         </Button>
-        {result && <p className="mt-3 text-sm text-black/70 dark:text-white/70">{result}</p>}
+        {result && <p className="mt-3 text-sm text-neutral-700">{result}</p>}
       </form>
     </section>
   );

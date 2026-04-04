@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* Light canvas site: default `dark:` used prefers-color-scheme, so OS dark mode turned copy white on cream. Only honor `dark:*` under `.dark` (optional future theme toggle). */
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
   --bg: #fff8e7;
   --fg: #0f0f0f;
@@ -25,6 +28,10 @@
 
 * {
   border-color: color-mix(in srgb, var(--fg) 8%, transparent);
+}
+
+html {
+  color-scheme: light;
 }
 
 html,
@@ -75,15 +82,31 @@ body {
   letter-spacing: -0.02em;
 }
 
+/* Long-form pages (no @tailwindcss/typography): keep body copy clearly on the light gradient. */
+.article-body {
+  margin-top: 2.5rem;
+  max-width: none;
+  font-size: 1.125rem;
+  line-height: 1.75;
+  color: #404040;
+}
+
+.article-body p {
+  margin-top: 1em;
+}
+
+.article-body p:first-child {
+  margin-top: 0;
+}
+
 .hero-shell {
   min-height: 84vh;
-  padding-top: 5rem;
+  padding-top: 0;
 }
 
 @media (max-height: 760px) {
   .hero-shell {
     min-height: 72svh;
-    padding-top: 4.25rem;
   }
 }
 

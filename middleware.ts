@@ -1,5 +1,12 @@
-export { default } from "next-auth/middleware";
+import { type NextRequest } from "next/server";
+import { updateSession } from "@/lib/supabase/middleware";
+
+export async function middleware(request: NextRequest) {
+  return updateSession(request);
+}
 
 export const config = {
-  matcher: ["/admin/:path*", "/api/blogs/:path*", "/api/events/:path*", "/api/materials/:path*", "/api/team/:path*"],
+  matcher: [
+    "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
+  ],
 };

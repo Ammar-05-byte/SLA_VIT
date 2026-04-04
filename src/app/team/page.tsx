@@ -1,59 +1,36 @@
-import { AtSign, Globe, Send } from "lucide-react";
+import { ConnectSocial } from "@/components/home/connect-social";
+import { TeamMemberCard } from "@/components/team/team-member-card";
 import { getTeamMembers } from "@/lib/data";
+import { resolveTeamMemberPhoto } from "@/lib/team-photo";
 import { Badge } from "@/components/ui/badge";
-import { Card, CardContent } from "@/components/ui/card";
 
 export default async function TeamPage() {
   const team: Array<{
     id: string;
     name: string;
     role: string;
-    bio?: string | null;
-    instagram?: string | null;
-    linkedin?: string | null;
-    twitter?: string | null;
+    image?: string | null;
   }> = await getTeamMembers();
 
   return (
-    <section className="section-container page-section">
-      <Badge>Core Members</Badge>
-      <h1 className="page-title mt-4">The Core Committee</h1>
+    <>
+      <section className="section-container page-section">
+        <Badge>Core Members</Badge>
+        <h1 className="page-title mt-4 text-neutral-950">The Core Committee</h1>
 
-      <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {team.map((member) => (
-          <Card key={member.id} className="group overflow-hidden [perspective:1000px]">
-            <CardContent className="relative min-h-64 transition duration-500 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
-              <div className="absolute inset-0 [backface-visibility:hidden]">
-                <p className="heading text-xl font-semibold sm:text-2xl">{member.name}</p>
-                <p className="mt-1 text-sm uppercase tracking-[0.12em] text-[var(--red)]">{member.role}</p>
-                <p className="mt-3 text-sm text-black/70 dark:text-white/70">Hover to reveal links</p>
-              </div>
-              <div className="absolute inset-0 [transform:rotateY(180deg)] [backface-visibility:hidden]">
-                <p className="text-sm text-black/70 dark:text-white/70">
-                  {member.bio || "Building meaningful cross-cultural narratives."}
-                </p>
-                <div className="mt-4 flex gap-2">
-                  {member.instagram && (
-                    <a href={member.instagram} target="_blank" rel="noreferrer" className="rounded-full border p-2">
-                      <AtSign className="h-4 w-4" />
-                    </a>
-                  )}
-                  {member.linkedin && (
-                    <a href={member.linkedin} target="_blank" rel="noreferrer" className="rounded-full border p-2">
-                      <Globe className="h-4 w-4" />
-                    </a>
-                  )}
-                  {member.twitter && (
-                    <a href={member.twitter} target="_blank" rel="noreferrer" className="rounded-full border p-2">
-                      <Send className="h-4 w-4" />
-                    </a>
-                  )}
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        ))}
-      </div>
-    </section>
+        <div className="mt-12 grid gap-8 sm:grid-cols-2 xl:grid-cols-3">
+          {team.map((member) => (
+            <TeamMemberCard
+              key={member.id}
+              name={member.name}
+              role={member.role}
+              photoSrc={resolveTeamMemberPhoto(member)}
+            />
+          ))}
+        </div>
+      </section>
+
+      <ConnectSocial />
+    </>
   );
 }

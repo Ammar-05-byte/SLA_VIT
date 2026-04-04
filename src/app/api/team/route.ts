@@ -3,11 +3,19 @@ import { z } from "zod";
 import { prisma } from "@/lib/prisma";
 import { ensureAdmin } from "@/lib/api-auth";
 
+const pathOrUrl = z
+  .string()
+  .max(2048)
+  .refine(
+    (s) => s === "" || s.startsWith("/") || /^https?:\/\//i.test(s),
+    "Image must be a full URL or a site path like /team/name.jpg",
+  );
+
 const memberSchema = z.object({
   name: z.string().min(2),
   role: z.string().min(2),
   bio: z.string().optional(),
-  image: z.string().url().optional().or(z.literal("")),
+  image: pathOrUrl.optional(),
   instagram: z.string().url().optional().or(z.literal("")),
   linkedin: z.string().url().optional().or(z.literal("")),
   twitter: z.string().url().optional().or(z.literal("")),

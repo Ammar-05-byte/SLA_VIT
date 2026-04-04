@@ -26,9 +26,9 @@ export default async function BlogsPage() {
                 <Image src={blog.coverImage} alt={blog.title} width={1200} height={800} className="h-52 w-full object-cover" />
               )}
               <CardContent>
-                <p className="text-xs uppercase tracking-[0.16em] text-black/55 dark:text-white/55">{blog.category}</p>
+                <p className="text-xs uppercase tracking-[0.16em] text-neutral-600">{blog.category}</p>
                 <h2 className="heading mt-2 text-xl font-semibold">{blog.title}</h2>
-                <p className="mt-2 line-clamp-3 text-sm text-black/70 dark:text-white/70">{blog.excerpt}</p>
+                <p className="mt-2 line-clamp-3 text-sm text-neutral-600">{blog.excerpt}</p>
               </CardContent>
             </Card>
           </Link>

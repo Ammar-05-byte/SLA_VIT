@@ -43,7 +43,7 @@ export default function MaterialsPage() {
       <h1 className="page-title mt-4">Materials</h1>
       <div className="mt-8 flex flex-col gap-4 md:flex-row">
         <div className="relative w-full">
-          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-black/45 dark:text-white/45" />
+          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-neutral-500" />
           <Input className="pl-9" placeholder="Search materials" value={search} onChange={(e) => setSearch(e.target.value)} />
         </div>
         <select
@@ -65,7 +65,7 @@ export default function MaterialsPage() {
             <CardContent>
               <p className="text-xs uppercase tracking-[0.14em] text-[var(--red)]">{material.kind}</p>
               <h2 className="heading mt-2 text-xl font-semibold">{material.title}</h2>
-              <p className="mt-2 text-sm text-black/70 dark:text-white/70">{material.description}</p>
+              <p className="mt-2 text-sm text-neutral-600">{material.description}</p>
               <a
                 href={material.resourceUrl}
                 target="_blank"
