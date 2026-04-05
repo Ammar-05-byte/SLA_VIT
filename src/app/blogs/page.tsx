@@ -20,7 +20,7 @@ export default async function BlogsPage() {
   return (
     <section className="section-container page-section">
       <Badge>Editorial</Badge>
-      <h1 className="page-title mt-4">Stories and Essays</h1>
+      <h1 className="page-title mt-4">Blog</h1>
       <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {blogs.map((blog) => (
           <Link href={`/blogs/${blog.slug}`} key={blog.id}>
