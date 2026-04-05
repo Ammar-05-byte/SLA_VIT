@@ -62,9 +62,9 @@ export default function AdminLoginPage() {
   }
 
   return (
-    <div className="flex min-h-screen w-full items-center justify-center bg-[#FFF9E6] px-4 py-12 md:py-16">
+    <div className="flex min-h-[100dvh] w-full max-w-[100vw] items-center justify-center overflow-x-hidden bg-[#FFF9E6] px-4 py-10 sm:py-12 md:py-16">
       <form
-        className="mx-auto w-full max-w-[420px] rounded-[1.5rem] bg-white px-8 py-10 shadow-[0_16px_48px_-12px_rgba(0,0,0,0.12)] md:px-10 md:py-12"
+        className="mx-auto w-full min-w-0 max-w-[420px] rounded-[1.5rem] bg-white px-5 py-8 shadow-[0_16px_48px_-12px_rgba(0,0,0,0.12)] sm:px-8 sm:py-10 md:px-10 md:py-12"
         onSubmit={(e) => {
           e.preventDefault();
           void onSubmit(new FormData(e.currentTarget));

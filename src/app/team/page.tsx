@@ -14,9 +14,9 @@ export default async function TeamPage() {
 
   return (
     <>
-      <section className="section-container page-section">
+      <section className="section-container scroll-mt-28 page-section pt-8 sm:scroll-mt-32 sm:pt-10">
         <Badge>Core Members</Badge>
-        <h1 className="page-title mt-4 text-neutral-950">The Core Committee</h1>
+        <h1 className="page-title mt-4 scroll-mt-28 text-neutral-950 sm:scroll-mt-32">The Core Committee</h1>
 
         <div className="mt-12 grid gap-8 sm:grid-cols-2 xl:grid-cols-3">
           {team.map((member) => (

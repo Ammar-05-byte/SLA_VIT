@@ -1,14 +1,14 @@
 import nodemailer from "nodemailer";
 import { NextResponse } from "next/server";
 import { z } from "zod";
-import { prisma } from "@/lib/prisma";
+import { hasUsableDatabaseUrl, prisma } from "@/lib/prisma";
 import { ensureAdmin } from "@/lib/api-auth";
 
 const contactSchema = z.object({
-  name: z.string().min(2),
+  name: z.string().trim().min(1),
   email: z.string().email(),
-  subject: z.string().min(3),
-  message: z.string().min(10),
+  subject: z.string().trim().min(1),
+  message: z.string().trim().min(1),
 });
 
 export async function POST(req: Request) {
@@ -19,8 +19,12 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: parsed.error.flatten() }, { status: 400 });
   }
 
-  if (process.env.DATABASE_URL) {
-    await prisma.contactMessage.create({ data: parsed.data });
+  if (hasUsableDatabaseUrl()) {
+    try {
+      await prisma.contactMessage.create({ data: parsed.data });
+    } catch {
+      /* continue: email path may still work */
+    }
   }
 
   if (process.env.SMTP_HOST && process.env.CONTACT_RECEIVER_EMAIL) {
@@ -49,7 +53,7 @@ export async function GET() {
   const isAdmin = await ensureAdmin();
   if (!isAdmin) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
-  if (!process.env.DATABASE_URL) {
+  if (!hasUsableDatabaseUrl()) {
     return NextResponse.json([]);
   }
   const messages = await prisma.contactMessage.findMany({ orderBy: { createdAt: "desc" }, take: 100 });

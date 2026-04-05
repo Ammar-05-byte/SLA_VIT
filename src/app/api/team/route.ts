@@ -12,8 +12,8 @@ const pathOrUrl = z
   );
 
 const memberSchema = z.object({
-  name: z.string().min(2),
-  role: z.string().min(2),
+  name: z.string().trim().min(1),
+  role: z.string().trim().min(1),
   bio: z.string().optional(),
   image: pathOrUrl.optional(),
   instagram: z.string().url().optional().or(z.literal("")),

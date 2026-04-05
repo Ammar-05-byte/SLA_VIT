@@ -69,9 +69,9 @@ export default function AdminMaterialsPage() {
   }
 
   return (
-    <div className="space-y-8">
+    <div className="min-w-0 space-y-8">
       <form className={adminPanelClass} onSubmit={(ev) => void handleCreate(ev)}>
-        <h2 className="heading text-xl font-semibold text-neutral-900">Add Material</h2>
+        <h2 className="heading break-words text-lg font-semibold text-neutral-900 sm:text-xl">Add Material</h2>
         <div className="mt-5 grid gap-4 md:grid-cols-2">
           <div>
             <label className={adminLabelClass} htmlFor="mat-title">
@@ -111,7 +111,7 @@ export default function AdminMaterialsPage() {
       </form>
 
       <div className={adminPanelClass}>
-        <h2 className="heading text-xl font-semibold text-neutral-900">Existing Materials</h2>
+        <h2 className="heading break-words text-lg font-semibold text-neutral-900 sm:text-xl">Existing Materials</h2>
         <ul className="mt-5 space-y-3">
           {items.map((item) => (
             <li

@@ -15,6 +15,7 @@ import {
   Lightbulb,
   Package,
   Inbox,
+  X,
 } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import { cn } from "@/lib/utils";
@@ -73,7 +74,15 @@ function formatRole(role: string) {
   return role.charAt(0).toUpperCase() + role.slice(1).replace(/-/g, " ");
 }
 
-export function AdminShellSidebar({ admin: serverAdmin }: { admin: AdminProfile }) {
+export function AdminShellSidebar({
+  admin: serverAdmin,
+  mobileOpen = false,
+  onMobileClose,
+}: {
+  admin: AdminProfile;
+  mobileOpen?: boolean;
+  onMobileClose?: () => void;
+}) {
   const pathname = usePathname();
   const router = useRouter();
   const [logoOk, setLogoOk] = useState(true);
@@ -122,37 +131,58 @@ export function AdminShellSidebar({ admin: serverAdmin }: { admin: AdminProfile 
   }
 
   return (
-    <aside className="flex w-[260px] shrink-0 flex-col bg-[#6B0F1A] text-white md:w-[280px]">
-      <div className="flex items-center gap-3 border-b border-white/10 p-5">
-        <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-full border-2 border-[#f5d78e]/80 bg-[#f5d78e]/20">
-          {logoOk ? (
-            <Image
-              src="/sla-vit-logo.png"
-              alt=""
-              fill
-              className="object-cover"
-              sizes="48px"
-              onError={() => setLogoOk(false)}
-            />
-          ) : (
-            <span className="flex h-full w-full items-center justify-center text-xs font-bold text-[#f5d78e]">SLA</span>
-          )}
+    <aside
+      id="admin-sidebar-nav"
+      className={cn(
+        "flex h-full max-h-screen w-[min(280px,88vw)] shrink-0 flex-col bg-[#6B0F1A] text-white md:h-auto md:max-h-none md:w-[280px]",
+        "fixed inset-y-0 left-0 z-50 md:static md:z-auto",
+        "transition-transform duration-200 ease-out md:translate-x-0",
+        mobileOpen ? "translate-x-0 shadow-2xl" : "-translate-x-full md:translate-x-0 md:shadow-none",
+      )}
+    >
+      <div className="flex items-start justify-between gap-2 border-b border-white/10 p-4 sm:p-5">
+        <div className="flex min-w-0 items-center gap-3">
+          <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-full border-2 border-[#f5d78e]/80 bg-[#f5d78e]/20">
+            {logoOk ? (
+              <Image
+                src="/sla-vit-logo.png"
+                alt=""
+                fill
+                className="object-cover"
+                sizes="48px"
+                onError={() => setLogoOk(false)}
+              />
+            ) : (
+              <span className="flex h-full w-full items-center justify-center text-xs font-bold text-[#f5d78e]">SLA</span>
+            )}
+          </div>
+          <div className="min-w-0">
+            <p className="font-[family-name:var(--font-admin-serif),Georgia,serif] text-lg font-bold leading-tight">Admin Panel</p>
+            <p className="truncate text-xs text-white/75" title={profile.role ? `Role: ${profile.role}` : undefined}>
+              {formatRole(profile.role)}
+            </p>
+          </div>
         </div>
-        <div className="min-w-0">
-          <p className="font-[family-name:var(--font-admin-serif),Georgia,serif] text-lg font-bold leading-tight">Admin Panel</p>
-          <p className="truncate text-xs text-white/75" title={profile.role ? `Role: ${profile.role}` : undefined}>
-            {formatRole(profile.role)}
-          </p>
-        </div>
+        {onMobileClose ? (
+          <button
+            type="button"
+            onClick={onMobileClose}
+            className="mt-0.5 inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg text-white/90 transition-colors hover:bg-white/10 md:hidden"
+            aria-label="Close navigation menu"
+          >
+            <X className="h-5 w-5" strokeWidth={2} />
+          </button>
+        ) : null}
       </div>
 
-      <nav className="flex flex-1 flex-col gap-1 overflow-y-auto p-3">
+      <nav className="flex flex-1 flex-col gap-1 overflow-y-auto overscroll-contain p-3">
         {primaryNav.map(({ href, label, icon: Icon, match }) => {
           const active = match(pathname);
           return (
             <Link
               key={href}
               href={href}
+              onClick={() => onMobileClose?.()}
               className={cn(
                 "flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-colors",
                 active ? "bg-white/15 text-white" : "text-white/90 hover:bg-white/10",
@@ -171,6 +201,7 @@ export function AdminShellSidebar({ admin: serverAdmin }: { admin: AdminProfile 
             <Link
               key={href}
               href={href}
+              onClick={() => onMobileClose?.()}
               className={cn(
                 "flex items-center gap-3 rounded-xl px-3 py-2 text-xs font-medium transition-colors",
                 active ? "bg-white/10 text-white" : "text-white/70 hover:bg-white/5 hover:text-white/90",

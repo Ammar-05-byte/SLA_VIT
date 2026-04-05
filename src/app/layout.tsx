@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter, Poppins } from "next/font/google";
 import { LayoutChrome } from "@/components/layout-chrome";
 import "./globals.css";
@@ -17,6 +17,11 @@ const poppins = Poppins({
 export const metadata: Metadata = {
   title: "Spanish Literary Association | VIT Vellore",
   description: "Official website for the Spanish Literary Association at VIT Vellore.",
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
 };
 
 export default function RootLayout({

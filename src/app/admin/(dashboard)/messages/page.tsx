@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { formatApiError } from "@/lib/admin-api-error";
 import { adminPanelClass } from "@/lib/admin-ui";
+import { cn } from "@/lib/utils";
 
 interface ContactRow {
   id: string;
@@ -55,9 +56,9 @@ export default function AdminMessagesPage() {
   }
 
   return (
-    <div className={adminPanelClass}>
+    <div className={cn(adminPanelClass, "min-w-0")}>
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <h2 className="heading text-xl font-semibold text-neutral-900">Contact Messages</h2>
+        <h2 className="heading break-words text-lg font-semibold text-neutral-900 sm:text-xl">Contact Messages</h2>
         <Button type="button" variant="outline" size="sm" className="rounded-xl" onClick={() => void load()}>
           Refresh
         </Button>

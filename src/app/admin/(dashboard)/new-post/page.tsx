@@ -10,7 +10,7 @@ import { formatApiError } from "@/lib/admin-api-error";
 import { adminInputClass, adminLabelClass } from "@/lib/admin-ui";
 
 const panel =
-  "rounded-2xl border border-neutral-200/80 bg-white p-6 shadow-sm ";
+  "max-w-full rounded-2xl border border-neutral-200/80 bg-white p-4 shadow-sm sm:p-6 ";
 
 export default function AdminNewPostPage() {
   const router = useRouter();
@@ -51,7 +51,7 @@ export default function AdminNewPostPage() {
   }
 
   return (
-    <div>
+    <div className="min-w-0">
       <AdminPageHeader title="New Post" subtitle="Create a blog post for the public site (Prisma)." />
 
       <form className={panel} onSubmit={(ev) => void handleCreate(ev)}>
@@ -72,7 +72,7 @@ export default function AdminNewPostPage() {
             <label className={adminLabelClass} htmlFor="np-cover">
               Cover image URL
             </label>
-            <Input id="np-cover" name="coverImage" type="url" className={adminInputClass} placeholder="https://…" />
+            <Input id="np-cover" name="coverImage" type="text" className={adminInputClass} placeholder="https://… or /images/cover.jpg" />
           </div>
           <div className="md:col-span-2">
             <label className={adminLabelClass} htmlFor="np-excerpt">

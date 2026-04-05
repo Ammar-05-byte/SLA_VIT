@@ -19,15 +19,17 @@ export function TeamMemberCard({
   return (
     <article className="flex h-full flex-col overflow-hidden rounded-2xl border border-neutral-200/80 bg-white/85 shadow-[0_8px_40px_-12px_rgba(0,0,0,0.12)] backdrop-blur-sm">
       <div className="relative aspect-[4/5] w-full shrink-0 bg-gradient-to-b from-neutral-100 to-neutral-200/80">
-        <Image
-          src={src}
-          alt={`${name}, ${role}`}
-          fill
-          className="object-cover object-top"
-          sizes="(max-width:768px) 100vw, (max-width:1280px) 50vw, 360px"
-          priority={false}
-          onError={() => setSrc(FALLBACK)}
-        />
+        <div className="absolute inset-3 overflow-hidden rounded-xl border-2 border-[var(--red)] bg-neutral-200/40">
+          <Image
+            src={src}
+            alt={`${name}, ${role}`}
+            fill
+            className="object-cover object-top"
+            sizes="(max-width:768px) 100vw, (max-width:1280px) 50vw, 360px"
+            priority={false}
+            onError={() => setSrc(FALLBACK)}
+          />
+        </div>
       </div>
       <div className="flex flex-1 flex-col justify-end p-6 pt-5">
         <h2 className="heading text-xl font-semibold leading-snug text-neutral-950 sm:text-2xl">{name}</h2>

@@ -53,6 +53,9 @@ export function SiteFooter() {
               <Link href="/team" className="w-fit transition hover:text-white/80">
                 About Us
               </Link>
+              <Link href="/contact" className="w-fit transition hover:text-white/80">
+                Contact
+              </Link>
             </nav>
           </div>
         </div>

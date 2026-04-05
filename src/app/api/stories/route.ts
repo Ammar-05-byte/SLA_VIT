@@ -2,13 +2,14 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import { prisma } from "@/lib/prisma";
 import { ensureAdmin } from "@/lib/api-auth";
+import { optionalImageRefSchema } from "@/lib/image-ref";
 import { makeSlug } from "@/lib/utils";
 
 const storySchema = z.object({
-  title: z.string().min(3),
-  excerpt: z.string().min(8),
-  content: z.string().min(20),
-  coverImage: z.string().url().optional().or(z.literal("")),
+  title: z.string().trim().min(1),
+  excerpt: z.string().trim().min(1),
+  content: z.string().trim().min(1),
+  coverImage: optionalImageRefSchema.optional(),
   featured: z.boolean().optional(),
 });
 

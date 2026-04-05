@@ -12,12 +12,23 @@ export function AboutSla() {
           Sciences and Languages, fosters a deep appreciation for the Spanish language and its rich cultural tapestry.
           We cultivate fluency, explore literary masterpieces, and celebrate the diverse nuances of Hispanic culture.
         </p>
-        <Link
-          href="/team"
-          className={cn(buttonVariants({ variant: "default", size: "lg" }), "mt-10 inline-flex gap-2")}
-        >
-          Learn More About Us <span aria-hidden>→</span>
-        </Link>
+        <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
+          <Link
+            href="/team"
+            className={cn(buttonVariants({ variant: "default", size: "lg" }), "inline-flex gap-2")}
+          >
+            Learn More About Us <span aria-hidden>→</span>
+          </Link>
+          <Link
+            href="/contact"
+            className={cn(
+              buttonVariants({ variant: "outline", size: "lg" }),
+              "border-neutral-900/20 bg-white/40 text-neutral-900 hover:bg-white/70 dark:border-white/25 dark:bg-white/5 dark:text-white dark:hover:bg-white/10",
+            )}
+          >
+            Get in Touch
+          </Link>
+        </div>
       </div>
     </section>
   );

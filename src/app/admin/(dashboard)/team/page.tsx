@@ -72,9 +72,9 @@ export default function AdminTeamPage() {
   }
 
   return (
-    <div className="space-y-8">
+    <div className="min-w-0 space-y-8">
       <form className={adminPanelClass} onSubmit={(ev) => void handleCreate(ev)}>
-        <h2 className="heading text-xl font-semibold text-neutral-900">Add Team Member</h2>
+        <h2 className="heading break-words text-lg font-semibold text-neutral-900 sm:text-xl">Add Team Member</h2>
         <div className="mt-5 grid gap-4 md:grid-cols-2">
           <div>
             <label className={adminLabelClass} htmlFor="team-name">
@@ -132,7 +132,7 @@ export default function AdminTeamPage() {
       </form>
 
       <div className={adminPanelClass}>
-        <h2 className="heading text-xl font-semibold text-neutral-900">Existing Team</h2>
+        <h2 className="heading break-words text-lg font-semibold text-neutral-900 sm:text-xl">Existing Team</h2>
         <ul className="mt-5 space-y-3">
           {items.map((item) => (
             <li

@@ -70,9 +70,9 @@ export default function AdminStoriesPage() {
   }
 
   return (
-    <div className="space-y-8">
+    <div className="min-w-0 space-y-8">
       <form className={adminPanelClass} onSubmit={(ev) => void handleCreate(ev)}>
-        <h2 className="heading text-xl font-semibold text-neutral-900">Create Story</h2>
+        <h2 className="heading break-words text-lg font-semibold text-neutral-900 sm:text-xl">Create Story</h2>
         <div className="mt-5 grid gap-4 md:grid-cols-2">
           <div className="md:col-span-2">
             <label className={adminLabelClass} htmlFor="story-title">
@@ -84,7 +84,7 @@ export default function AdminStoriesPage() {
             <label className={adminLabelClass} htmlFor="story-cover">
               Cover image URL
             </label>
-            <Input id="story-cover" name="coverImage" type="url" className={adminInputClass} placeholder="https://…" />
+            <Input id="story-cover" name="coverImage" type="text" className={adminInputClass} placeholder="https://… or /images/cover.jpg" />
           </div>
           <div className="md:col-span-2">
             <label className={adminLabelClass} htmlFor="story-excerpt">
@@ -110,7 +110,7 @@ export default function AdminStoriesPage() {
       </form>
 
       <div className={adminPanelClass}>
-        <h2 className="heading text-xl font-semibold text-neutral-900">Existing Stories</h2>
+        <h2 className="heading break-words text-lg font-semibold text-neutral-900 sm:text-xl">Existing Stories</h2>
         <ul className="mt-5 space-y-3">
           {items.map((item) => (
             <li

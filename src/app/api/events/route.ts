@@ -2,12 +2,13 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import { prisma } from "@/lib/prisma";
 import { ensureAdmin } from "@/lib/api-auth";
+import { optionalImageRefSchema } from "@/lib/image-ref";
 
 const eventSchema = z.object({
-  title: z.string().min(3),
-  description: z.string().min(6),
+  title: z.string().trim().min(1),
+  description: z.string().trim().min(1),
   location: z.string().optional(),
-  image: z.string().url().optional().or(z.literal("")),
+  image: optionalImageRefSchema.optional(),
   startsAt: z.string().datetime(),
 });
 

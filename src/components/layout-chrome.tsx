@@ -18,7 +18,7 @@ export function LayoutChrome({ children }: { children: React.ReactNode }) {
     <>
       <ScrollSmoothProvider />
       <SiteNavbar />
-      <main className="flex-1 pb-10 pt-0">
+      <main className="min-w-0 flex-1 overflow-x-hidden pb-10 pt-0">
         <PageTransition>{children}</PageTransition>
       </main>
       <SiteFooter />

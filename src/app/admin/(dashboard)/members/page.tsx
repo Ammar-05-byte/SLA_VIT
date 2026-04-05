@@ -11,7 +11,8 @@ interface AdminRow {
   role: string;
 }
 
-const panel = "rounded-2xl border border-neutral-200 bg-white p-6 shadow-sm";
+const panel =
+  "max-w-full rounded-2xl border border-neutral-200 bg-white p-4 shadow-sm sm:p-6";
 
 function roleBadge(role: string) {
   const r = role?.toLowerCase() || "";
@@ -49,7 +50,7 @@ export default function AdminMembersPage() {
   }, [load]);
 
   return (
-    <div>
+    <div className="min-w-0">
       <AdminPageHeader
         title="Members"
         subtitle="View admin accounts. Add or change admins in the Supabase Table Editor (public.admins) — link Auth user id to each row."
@@ -61,9 +62,9 @@ export default function AdminMembersPage() {
           {admins.map((a) => (
             <li
               key={a.id}
-              className="flex items-center justify-between gap-3 rounded-xl border border-neutral-200 bg-neutral-50 px-4 py-3"
+              className="flex flex-col gap-3 rounded-xl border border-neutral-200 bg-neutral-50 px-4 py-3 sm:flex-row sm:items-center sm:justify-between sm:gap-3"
             >
-              <div className="flex min-w-0 items-center gap-3">
+              <div className="flex min-w-0 flex-1 items-center gap-3">
                 <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#6B0F1A]/15 text-sm font-bold text-[#6B0F1A]">
                   {a.name?.charAt(0) ?? "?"}
                 </div>
@@ -77,7 +78,7 @@ export default function AdminMembersPage() {
                   <p className="truncate text-xs text-neutral-600">{a.email}</p>
                 </div>
               </div>
-              {roleBadge(a.role)}
+              <div className="shrink-0 self-start sm:self-center">{roleBadge(a.role)}</div>
             </li>
           ))}
         </ul>

@@ -13,7 +13,8 @@ interface CommentRow {
   created_at: string;
 }
 
-const panel = "rounded-2xl border border-neutral-200 bg-white p-6 shadow-sm";
+const panel =
+  "max-w-full rounded-2xl border border-neutral-200 bg-white p-4 shadow-sm sm:p-6";
 
 export default function AdminCommentsPage() {
   const [items, setItems] = useState<CommentRow[]>([]);
@@ -49,7 +50,7 @@ export default function AdminCommentsPage() {
   }
 
   return (
-    <div>
+    <div className="min-w-0">
       <AdminPageHeader title="Comments" subtitle="Moderate comments across Supabase posts" />
 
       <div className={panel}>

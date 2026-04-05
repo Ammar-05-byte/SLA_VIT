@@ -6,7 +6,8 @@ import { AdminPageHeader } from "@/components/admin/admin-page-header";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
-const cardSurface = "rounded-2xl border border-neutral-200 bg-white p-5 shadow-sm";
+const cardSurface =
+  "max-w-full rounded-2xl border border-neutral-200 bg-white p-4 shadow-sm sm:p-5";
 
 export default async function AdminOverviewPage() {
   const { admin } = await requireAdmin();
@@ -37,7 +38,7 @@ export default async function AdminOverviewPage() {
   ];
 
   return (
-    <div className="text-neutral-900">
+    <div className="min-w-0 text-neutral-900">
       <AdminPageHeader title="Dashboard" subtitle={`Welcome back, ${admin.name}`} />
 
       <div className="grid gap-4 sm:grid-cols-3">

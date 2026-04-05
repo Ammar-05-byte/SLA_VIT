@@ -49,7 +49,15 @@ npm run prisma:generate
 npm run prisma:push
 ```
 
-5. Start dev server
+5. (Optional) Seed the Team page roster into PostgreSQL
+
+```bash
+npm run prisma:seed
+```
+
+Requires a working `DATABASE_URL`. This **replaces every row** in `TeamMember` with the committee list from `src/lib/mock-data.ts`. Add portrait files under `public/` using the same paths (for example `/President.jpg`, `/Vice President.jpg`).
+
+6. Start dev server
 
 ```bash
 npm run dev
@@ -75,6 +83,7 @@ npm run build
 
 ## Notes
 
-- If `DATABASE_URL` is not set, public pages use mock fallback content for graceful local preview.
+- If `DATABASE_URL` is not set (or is still the `.env.example` placeholder), public pages use mock fallback content for graceful local preview.
+- With a real database, an **empty** `TeamMember` table shows the mock roster on `/team` **in development only**; run `npm run prisma:seed` (or add members in Admin) for production-like data.
 - If Supabase env vars are missing, admin login and protected admin routes will not work until they are set.
 - To enable contact emails, add SMTP env variables (`SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS`, `CONTACT_RECEIVER_EMAIL`).

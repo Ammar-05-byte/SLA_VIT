@@ -5,11 +5,11 @@ import { ensureAdmin } from "@/lib/api-auth";
 import { mockMaterials } from "@/lib/mock-data";
 
 const materialSchema = z.object({
-  title: z.string().min(3),
+  title: z.string().trim().min(1),
   description: z.string().optional(),
-  category: z.string().min(2),
+  category: z.string().trim().min(1),
   resourceUrl: z.string().url(),
-  kind: z.string().min(2),
+  kind: z.string().trim().min(1),
 });
 
 export async function GET() {

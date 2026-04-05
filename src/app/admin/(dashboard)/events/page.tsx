@@ -72,9 +72,9 @@ export default function AdminEventsPage() {
   }
 
   return (
-    <div className="space-y-8">
+    <div className="min-w-0 space-y-8">
       <form className={adminPanelClass} onSubmit={(ev) => void handleCreate(ev)}>
-        <h2 className="heading text-xl font-semibold text-neutral-900">Create Event</h2>
+        <h2 className="heading break-words text-lg font-semibold text-neutral-900 sm:text-xl">Create Event</h2>
         <div className="mt-5 grid gap-4 md:grid-cols-2">
           <div>
             <label className={adminLabelClass} htmlFor="event-title">
@@ -98,7 +98,7 @@ export default function AdminEventsPage() {
             <label className={adminLabelClass} htmlFor="event-image">
               Poster image URL
             </label>
-            <Input id="event-image" name="image" type="url" className={adminInputClass} placeholder="https://…" />
+            <Input id="event-image" name="image" type="text" className={adminInputClass} placeholder="https://… or /images/event.jpg" />
           </div>
           <div className="md:col-span-2">
             <label className={adminLabelClass} htmlFor="event-desc">
@@ -114,7 +114,7 @@ export default function AdminEventsPage() {
       </form>
 
       <div className={adminPanelClass}>
-        <h2 className="heading text-xl font-semibold text-neutral-900">Existing Events</h2>
+        <h2 className="heading break-words text-lg font-semibold text-neutral-900 sm:text-xl">Existing Events</h2>
         <ul className="mt-5 space-y-3">
           {items.map((item) => (
             <li

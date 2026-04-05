@@ -4,8 +4,8 @@ import { prisma } from "@/lib/prisma";
 import { ensureAdmin } from "@/lib/api-auth";
 
 const itemSchema = z.object({
-  title: z.string().min(2),
-  content: z.string().min(10),
+  title: z.string().trim().min(1),
+  content: z.string().trim().min(1),
   sourceUrl: z.string().url().optional().or(z.literal("")),
   sortOrder: z.number().int().optional(),
 });

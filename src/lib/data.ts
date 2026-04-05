@@ -1,4 +1,4 @@
-import { prisma } from "@/lib/prisma";
+import { prisma, hasUsableDatabaseUrl } from "@/lib/prisma";
 import {
   mockBlogs,
   mockDidYouKnow,
@@ -7,6 +7,7 @@ import {
   mockStories,
   mockTeam,
 } from "@/lib/mock-data";
+import { makeSlug } from "@/lib/utils";
 
 /** Shape used by `/did-you-know` (Prisma rows include extra fields; mock rows omit them). */
 export type DidYouKnowListItem = {
@@ -80,10 +81,38 @@ export async function getMaterials() {
   }
 }
 
+/**
+ * Public team page: full core committee order from `mockTeam`.
+ * When a DB row matches by `makeSlug(name)`, we keep its `id` (and other DB fields) but use
+ * **mock `role` and `image`** so official titles and portrait paths stay in sync with `mock-data`
+ * (stale CMS values like "Vice Chairperson" or wrong image paths do not override).
+ * Extra DB-only members (no mock match) are appended.
+ */
 export async function getTeamMembers() {
-  if (!process.env.DATABASE_URL) return mockTeam;
+  if (!hasUsableDatabaseUrl()) return mockTeam;
   try {
-    return await prisma.teamMember.findMany({ orderBy: { createdAt: "asc" } });
+    const dbRows = await prisma.teamMember.findMany({ orderBy: { createdAt: "asc" } });
+    const bySlug = new Map<string, (typeof dbRows)[number]>();
+    for (const row of dbRows) {
+      const key = makeSlug(row.name);
+      if (!bySlug.has(key)) bySlug.set(key, row);
+    }
+
+    const merged = mockTeam.map((mock) => {
+      const hit = bySlug.get(makeSlug(mock.name));
+      if (hit) {
+        bySlug.delete(makeSlug(mock.name));
+        return {
+          ...hit,
+          role: mock.role,
+          image: mock.image,
+        };
+      }
+      return mock;
+    });
+
+    const extras = [...bySlug.values()];
+    return [...merged, ...extras];
   } catch {
     return mockTeam;
   }

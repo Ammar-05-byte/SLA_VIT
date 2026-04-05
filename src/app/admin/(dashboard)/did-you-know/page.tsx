@@ -71,9 +71,9 @@ export default function AdminDidYouKnowPage() {
   }
 
   return (
-    <div className="space-y-8">
+    <div className="min-w-0 space-y-8">
       <form className={adminPanelClass} onSubmit={(ev) => void handleCreate(ev)}>
-        <h2 className="heading text-xl font-semibold text-neutral-900">Add Did You Know?</h2>
+        <h2 className="heading break-words text-lg font-semibold text-neutral-900 sm:text-xl">Add Did You Know?</h2>
         <div className="mt-5 grid gap-4 md:grid-cols-2">
           <div className="md:col-span-2">
             <label className={adminLabelClass} htmlFor="dyk-title">
@@ -107,7 +107,7 @@ export default function AdminDidYouKnowPage() {
       </form>
 
       <div className={adminPanelClass}>
-        <h2 className="heading text-xl font-semibold text-neutral-900">Existing facts</h2>
+        <h2 className="heading break-words text-lg font-semibold text-neutral-900 sm:text-xl">Existing facts</h2>
         <ul className="mt-5 space-y-3">
           {items.map((item) => (
             <li

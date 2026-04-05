@@ -17,7 +17,8 @@ interface BlogRow {
   category: string;
 }
 
-const panel = "rounded-2xl border border-neutral-200 bg-white p-6 shadow-sm";
+const panel =
+  "max-w-full rounded-2xl border border-neutral-200 bg-white p-4 shadow-sm sm:p-6";
 
 export default function AdminManagePostsPage() {
   const [items, setItems] = useState<BlogRow[]>([]);
@@ -61,7 +62,7 @@ export default function AdminManagePostsPage() {
   }
 
   return (
-    <div>
+    <div className="min-w-0">
       <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
         <AdminPageHeader className="mb-0" title="Manage Posts" subtitle={`${items.length} total posts`} />
         <Link

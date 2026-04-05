@@ -1,12 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 
 export default function ContactPage() {
+  const formRef = useRef<HTMLFormElement>(null);
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<string>("");
 
@@ -28,7 +29,29 @@ export default function ContactPage() {
     });
 
     setLoading(false);
-    setResult(res.ok ? "Your message has been received." : "Could not send your message.");
+    if (res.ok) {
+      setResult("Your message has been received. We will get back to you soon.");
+      formRef.current?.reset();
+      return;
+    }
+    let detail = "Could not send your message. Please try again.";
+    try {
+      const body = (await res.json()) as {
+        error?: { fieldErrors?: Record<string, string[]>; formErrors?: string[] };
+      };
+      const fe = body.error?.fieldErrors;
+      if (fe) {
+        const parts = Object.entries(fe).flatMap(([k, msgs]) =>
+          msgs?.length ? [`${k}: ${msgs.join(", ")}`] : [],
+        );
+        if (parts.length) detail = parts.join(" ");
+      } else if (body.error?.formErrors?.length) {
+        detail = body.error.formErrors.join(" ");
+      }
+    } catch {
+      /* ignore */
+    }
+    setResult(detail);
   }
 
   return (
@@ -36,7 +59,7 @@ export default function ContactPage() {
       <Badge>Contact</Badge>
       <h1 className="page-title mt-4">Lets Build Cultural Moments</h1>
 
-      <form action={onSubmit} className="glass mt-10 max-w-2xl rounded-2xl p-4 sm:p-6">
+      <form ref={formRef} action={onSubmit} className="glass mt-10 max-w-2xl rounded-2xl p-4 sm:p-6">
         <div className="grid gap-4 md:grid-cols-2">
           <Input name="name" placeholder="Your name" required />
           <Input name="email" type="email" placeholder="Email" required />

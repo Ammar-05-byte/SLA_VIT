@@ -9,7 +9,7 @@ const card =
 
 export default function AdminBlogsHubPage() {
   return (
-    <div>
+    <div className="min-w-0">
       <AdminPageHeader
         title="Blogs"
         subtitle="Manage public blog posts (Prisma). Open the list to edit or delete, or create a new post."
