@@ -43,9 +43,9 @@ export function SiteNavbar() {
 
   return (
     <>
-      <header className="sticky top-3 z-50 px-3">
-        <div className="section-container glass flex items-center gap-2 rounded-2xl px-3 py-2.5 md:gap-3 md:px-5 md:py-3">
-          <Link href="/" className="group flex shrink-0 items-center gap-2">
+      <header className="sticky top-3 z-50 w-full min-w-0 px-3">
+        <div className="section-container glass flex w-full max-w-full items-center justify-between gap-2 rounded-2xl px-3 py-2.5 md:justify-start md:gap-3 md:px-5 md:py-3">
+          <Link href="/" className="group flex min-w-0 shrink-0 items-center gap-2">
             <span className="relative flex h-9 w-9 items-center justify-center overflow-hidden rounded-full border border-black/10 dark:border-white/20">
               {!logoMissing ? (
                 <Image
@@ -96,7 +96,7 @@ export function SiteNavbar() {
               type="button"
               aria-label={mobileOpen ? "Close menu" : "Open menu"}
               aria-expanded={mobileOpen}
-              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-black/15 md:hidden"
+              className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-black/15 md:hidden"
               onClick={() => setMobileOpen((value) => !value)}
             >
               {mobileOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
@@ -115,13 +115,14 @@ export function SiteNavbar() {
       >
         <aside
           className={cn(
-            "absolute right-0 top-0 h-full w-[82%] max-w-[320px] bg-[var(--bg)] p-5 shadow-2xl transition-transform",
+            "absolute right-0 top-0 flex h-full w-[82%] max-w-[320px] flex-col bg-[var(--bg)] shadow-2xl transition-transform",
+            "pt-[calc(5rem+env(safe-area-inset-top,0px))] pl-5 pr-5 pb-5",
             mobileOpen ? "translate-x-0" : "translate-x-full",
           )}
           onClick={(event) => event.stopPropagation()}
         >
-          <p className="heading mb-4 text-lg font-semibold">Navigation</p>
-          <nav className="space-y-2">
+          <p className="heading mb-4 shrink-0 text-lg font-semibold">Navigation</p>
+          <nav className="min-h-0 space-y-2 overflow-y-auto overscroll-contain">
             {links.map((link) => {
               const active = pathname === link.href;
               return (

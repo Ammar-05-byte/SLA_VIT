@@ -4,7 +4,7 @@ import { FaInstagram, FaLinkedin } from "react-icons/fa6";
 
 export function SiteFooter() {
   return (
-    <footer className="mt-20 bg-[#D30C1C] text-white">
+    <footer className="mt-20 bg-[#7A1E2C] text-white">
       <div className="section-container py-14">
         <div className="grid gap-12 md:grid-cols-3 md:gap-10 lg:gap-16">
           <div className="flex gap-3">
