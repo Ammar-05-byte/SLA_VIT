@@ -4,6 +4,8 @@ import { HeroTypewriter } from "@/components/home/hero-typewriter";
 import { WordOfDay } from "@/components/home/word-of-day";
 import { getEvents } from "@/lib/data";
 
+export const dynamic = "force-dynamic";
+
 export default async function Home() {
   const events = await getEvents();
 

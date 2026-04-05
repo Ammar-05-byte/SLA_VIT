@@ -1,6 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
 import { getStories } from "@/lib/data";
+
+export const dynamic = "force-dynamic";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 

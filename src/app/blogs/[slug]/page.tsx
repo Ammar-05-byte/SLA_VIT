@@ -1,6 +1,8 @@
 import { notFound } from "next/navigation";
 import { getBlogBySlug } from "@/lib/data";
 
+export const dynamic = "force-dynamic";
+
 export default async function BlogDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const blog = await getBlogBySlug(slug);

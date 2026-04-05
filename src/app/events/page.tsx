@@ -1,6 +1,8 @@
 import { format } from "date-fns";
 import Image from "next/image";
 import { getEvents } from "@/lib/data";
+
+export const dynamic = "force-dynamic";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 

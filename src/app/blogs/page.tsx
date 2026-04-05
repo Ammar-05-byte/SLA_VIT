@@ -1,6 +1,9 @@
 import Link from "next/link";
 import Image from "next/image";
 import { getBlogs } from "@/lib/data";
+
+/** CMS-backed list must not be frozen at deploy time (admin sees live DB; static page would not). */
+export const dynamic = "force-dynamic";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 

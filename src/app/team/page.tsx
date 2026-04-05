@@ -1,6 +1,8 @@
 import { ConnectSocial } from "@/components/home/connect-social";
 import { TeamMemberCard } from "@/components/team/team-member-card";
 import { getTeamMembers } from "@/lib/data";
+
+export const dynamic = "force-dynamic";
 import { resolveTeamMemberPhoto } from "@/lib/team-photo";
 import { Badge } from "@/components/ui/badge";
 

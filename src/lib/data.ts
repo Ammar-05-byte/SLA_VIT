@@ -19,7 +19,7 @@ export type DidYouKnowListItem = {
 };
 
 export async function getBlogs() {
-  if (!process.env.DATABASE_URL) return mockBlogs;
+  if (!hasUsableDatabaseUrl()) return mockBlogs;
   try {
     return await prisma.blog.findMany({ orderBy: { publishedAt: "desc" } });
   } catch {
@@ -28,7 +28,7 @@ export async function getBlogs() {
 }
 
 export async function getBlogBySlug(slug: string) {
-  if (!process.env.DATABASE_URL) return mockBlogs.find((item) => item.slug === slug) ?? null;
+  if (!hasUsableDatabaseUrl()) return mockBlogs.find((item) => item.slug === slug) ?? null;
   try {
     return await prisma.blog.findUnique({ where: { slug } });
   } catch {
