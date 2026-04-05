@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { startTransition, useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { Menu } from "lucide-react";
 import { AdminShellSidebar, type AdminProfile } from "@/components/admin/admin-shell-sidebar";
@@ -17,7 +17,7 @@ export function AdminDashboardShell({
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
 
   useEffect(() => {
-    setMobileNavOpen(false);
+    startTransition(() => setMobileNavOpen(false));
   }, [pathname]);
 
   useEffect(() => {
@@ -50,6 +50,7 @@ export function AdminDashboardShell({
         aria-hidden
       />
       <AdminShellSidebar
+        key={`${admin.email}-${admin.name}-${admin.role}`}
         admin={admin}
         mobileOpen={mobileNavOpen}
         onMobileClose={() => setMobileNavOpen(false)}

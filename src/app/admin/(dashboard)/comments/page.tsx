@@ -35,8 +35,27 @@ export default function AdminCommentsPage() {
   }, []);
 
   useEffect(() => {
-    void load();
-  }, [load]);
+    let cancelled = false;
+    void (async () => {
+      const res = await fetch("/api/admin/comments");
+      if (!res.ok) {
+        const body = await res.json().catch(() => null);
+        if (!cancelled) {
+          setLoadError(formatApiError(body));
+          setItems([]);
+        }
+        return;
+      }
+      const data = (await res.json()) as CommentRow[];
+      if (!cancelled) {
+        setLoadError("");
+        setItems(Array.isArray(data) ? data : []);
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   async function remove(id: string) {
     const res = await fetch(`/api/admin/comments/${id}`, { method: "DELETE" });

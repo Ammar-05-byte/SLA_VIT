@@ -25,8 +25,16 @@ export default function AdminDidYouKnowPage() {
   }, []);
 
   useEffect(() => {
-    void load();
-  }, [load]);
+    let cancelled = false;
+    void (async () => {
+      const res = await fetch("/api/did-you-know");
+      const data = (await res.json()) as DykItem[];
+      if (!cancelled) setItems(Array.isArray(data) ? data : []);
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   async function handleCreate(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();

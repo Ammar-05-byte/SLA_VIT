@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -86,11 +86,16 @@ export function AdminShellSidebar({
   const pathname = usePathname();
   const router = useRouter();
   const [logoOk, setLogoOk] = useState(true);
-  const [profile, setProfile] = useState<AdminProfile>(serverAdmin);
+  const [profilePatch, setProfilePatch] = useState<Partial<AdminProfile>>({});
 
-  useEffect(() => {
-    setProfile(serverAdmin);
-  }, [serverAdmin.name, serverAdmin.email, serverAdmin.role]);
+  const profile = useMemo(
+    (): AdminProfile => ({
+      name: profilePatch.name ?? serverAdmin.name,
+      email: profilePatch.email ?? serverAdmin.email,
+      role: profilePatch.role ?? serverAdmin.role,
+    }),
+    [serverAdmin, profilePatch],
+  );
 
   useEffect(() => {
     let cancelled = false;
@@ -101,10 +106,11 @@ export function AdminShellSidebar({
         if (!res.ok || cancelled) return;
         const data: { email?: string | null; name?: string | null; role?: string | null } = await res.json();
         if (cancelled) return;
-        setProfile((prev) => ({
-          name: typeof data.name === "string" && data.name.length > 0 ? data.name : prev.name,
-          email: typeof data.email === "string" && data.email.length > 0 ? data.email : prev.email,
-          role: typeof data.role === "string" && data.role.length > 0 ? data.role : prev.role,
+        setProfilePatch((prev) => ({
+          ...prev,
+          ...(typeof data.name === "string" && data.name.length > 0 ? { name: data.name } : {}),
+          ...(typeof data.email === "string" && data.email.length > 0 ? { email: data.email } : {}),
+          ...(typeof data.role === "string" && data.role.length > 0 ? { role: data.role } : {}),
         }));
       } catch {
         /* keep server / previous profile */

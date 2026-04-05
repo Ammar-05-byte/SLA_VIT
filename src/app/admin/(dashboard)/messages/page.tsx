@@ -42,8 +42,38 @@ export default function AdminMessagesPage() {
   }, []);
 
   useEffect(() => {
-    void load();
-  }, [load]);
+    let cancelled = false;
+    void (async () => {
+      const res = await fetch("/api/contact");
+      if (cancelled) return;
+      if (res.status === 401) {
+        if (!cancelled) {
+          setError("You need to be signed in as an admin.");
+          setMessages([]);
+          setHint("");
+        }
+        return;
+      }
+      if (!res.ok) {
+        const body = await res.json().catch(() => null);
+        if (!cancelled) {
+          setError(formatApiError(body));
+          setMessages([]);
+          setHint("");
+        }
+        return;
+      }
+      const data = (await res.json()) as ContactRow[];
+      if (cancelled) return;
+      const list = Array.isArray(data) ? data : [];
+      setMessages(list);
+      setHint(list.length === 0 ? "No messages stored yet, or DATABASE_URL is not set." : "");
+      setError("");
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   async function remove(id: string) {
     const res = await fetch(`/api/contact/${id}`, { method: "DELETE" });

@@ -34,8 +34,19 @@ export default function AdminManagePostsPage() {
   }, []);
 
   useEffect(() => {
-    void load();
-  }, [load]);
+    let cancelled = false;
+    void (async () => {
+      const res = await fetch("/api/blogs");
+      const data = (await res.json()) as BlogRow[];
+      if (!cancelled) {
+        setError("");
+        setItems(Array.isArray(data) ? data : []);
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   const categories = useMemo(() => {
     const s = new Set(items.map((i) => i.category).filter(Boolean));

@@ -15,8 +15,12 @@ const blogSchema = z.object({
 });
 
 export async function GET() {
-  const blogs = await prisma.blog.findMany({ orderBy: { publishedAt: "desc" } });
-  return NextResponse.json(blogs);
+  try {
+    const blogs = await prisma.blog.findMany({ orderBy: { publishedAt: "desc" } });
+    return NextResponse.json(blogs);
+  } catch {
+    return NextResponse.json([]);
+  }
 }
 
 export async function POST(req: Request) {

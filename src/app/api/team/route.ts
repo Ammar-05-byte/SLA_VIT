@@ -22,8 +22,12 @@ const memberSchema = z.object({
 });
 
 export async function GET() {
-  const team = await prisma.teamMember.findMany({ orderBy: { createdAt: "asc" } });
-  return NextResponse.json(team);
+  try {
+    const team = await prisma.teamMember.findMany({ orderBy: { createdAt: "asc" } });
+    return NextResponse.json(team);
+  } catch {
+    return NextResponse.json([]);
+  }
 }
 
 export async function POST(req: Request) {

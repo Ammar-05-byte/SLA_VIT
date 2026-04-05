@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { AdminPageHeader } from "@/components/admin/admin-page-header";
 import { formatApiError } from "@/lib/admin-api-error";
 
@@ -29,25 +29,31 @@ export default function AdminMembersPage() {
   const [error, setError] = useState("");
   const [currentEmail, setCurrentEmail] = useState<string | null>(null);
 
-  const load = useCallback(async () => {
-    setError("");
-    const res = await fetch("/api/admin/admins");
-    if (!res.ok) {
-      const body = await res.json().catch(() => null);
-      setError(formatApiError(body));
-      return;
-    }
-    const data = (await res.json()) as AdminRow[];
-    setAdmins(Array.isArray(data) ? data : []);
-  }, []);
-
   useEffect(() => {
-    void load();
+    let cancelled = false;
+    void (async () => {
+      const res = await fetch("/api/admin/admins");
+      if (!res.ok) {
+        const body = await res.json().catch(() => null);
+        if (!cancelled) setError(formatApiError(body));
+        return;
+      }
+      const data = (await res.json()) as AdminRow[];
+      if (!cancelled) {
+        setError("");
+        setAdmins(Array.isArray(data) ? data : []);
+      }
+    })();
     void fetch("/api/admin/me")
       .then((r) => (r.ok ? r.json() : null))
-      .then((j) => j?.email && setCurrentEmail(String(j.email)))
+      .then((j) => {
+        if (!cancelled && j?.email) setCurrentEmail(String(j.email));
+      })
       .catch(() => {});
-  }, [load]);
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   return (
     <div className="min-w-0">

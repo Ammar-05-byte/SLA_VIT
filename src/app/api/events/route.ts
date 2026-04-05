@@ -13,8 +13,12 @@ const eventSchema = z.object({
 });
 
 export async function GET() {
-  const events = await prisma.event.findMany({ orderBy: { startsAt: "asc" } });
-  return NextResponse.json(events);
+  try {
+    const events = await prisma.event.findMany({ orderBy: { startsAt: "asc" } });
+    return NextResponse.json(events);
+  } catch {
+    return NextResponse.json([]);
+  }
 }
 
 export async function POST(req: Request) {

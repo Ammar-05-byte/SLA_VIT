@@ -2,13 +2,30 @@ import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
 export async function updateSession(request: NextRequest) {
-  let supabaseResponse = NextResponse.next({ request });
+  const pathname = request.nextUrl.pathname;
+  const isAdminLogin = pathname === "/admin/login" || pathname.startsWith("/admin/login/");
+  const isAdminArea = pathname.startsWith("/admin");
+  const isAdminApi = pathname.startsWith("/api/admin");
 
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
   if (!url || !key) {
-    return supabaseResponse;
+    if (isAdminApi) {
+      return NextResponse.json(
+        { error: "Server misconfiguration: missing NEXT_PUBLIC_SUPABASE_URL or NEXT_PUBLIC_SUPABASE_ANON_KEY." },
+        { status: 503 },
+      );
+    }
+    if (isAdminArea && !isAdminLogin) {
+      const redirectUrl = request.nextUrl.clone();
+      redirectUrl.pathname = "/admin/login";
+      redirectUrl.searchParams.set("error", "config");
+      return NextResponse.redirect(redirectUrl);
+    }
+    return NextResponse.next({ request });
   }
+
+  let supabaseResponse = NextResponse.next({ request });
 
   const supabase = createServerClient(url, key, {
     cookies: {
@@ -27,10 +44,6 @@ export async function updateSession(request: NextRequest) {
   const {
     data: { user },
   } = await supabase.auth.getUser();
-
-  const pathname = request.nextUrl.pathname;
-  const isAdminLogin = pathname === "/admin/login" || pathname.startsWith("/admin/login/");
-  const isAdminArea = pathname.startsWith("/admin");
 
   if (isAdminArea && !isAdminLogin) {
     if (!user) {
