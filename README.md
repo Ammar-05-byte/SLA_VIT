@@ -59,7 +59,7 @@ npm run dev
 
 ## Admin Access
 
-- Route: `/admin/login`
+- Route: `/admin-login`
 - Uses credentials from `ADMIN_EMAIL` and `ADMIN_PASSWORD`
 
 ## Build and Verification
